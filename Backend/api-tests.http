@@ -1,0 +1,95 @@
+### Backend Testing - Sales Inventory System
+### Asegúrate de tener el servidor corriendo en http://localhost:3000
+
+### Variables
+@baseURL = http://localhost:3000
+@token = YOUR_JWT_TOKEN_HERE
+
+### 1. Health Check
+GET {{baseURL}}/api/health
+
+### 2. API Info
+GET {{baseURL}}/
+
+### 3. Registro de Usuario
+POST {{baseURL}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123",
+  "first_name": "Test",
+  "last_name": "User"
+}
+
+### 4. Login (copia el token de la respuesta)
+POST {{baseURL}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### 5. Crear Producto
+POST {{baseURL}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Laptop HP Pavilion 15",
+  "description": "Laptop HP Pavilion 15 con Intel i5",
+  "sku": "HP-PAV-15-001",
+  "stock": 10,
+  "price": 799.99,
+  "warranty_period_months": 12
+}
+
+### 6. Obtener Productos
+GET {{baseURL}}/api/products
+Authorization: Bearer {{token}}
+
+### 7. Crear Cliente
+POST {{baseURL}}/api/customers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "first_name": "Juan",
+  "last_name": "Pérez",
+  "email": "juan@example.com",
+  "phone": "+1234567890",
+  "address": "123 Main St, City"
+}
+
+### 8. Obtener Clientes
+GET {{baseURL}}/api/customers
+Authorization: Bearer {{token}}
+
+### 9. Crear Venta (reemplaza los IDs con los reales)
+POST {{baseURL}}/api/sales
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "product_id": "PRODUCT_UUID_HERE",
+  "customer_id": "CUSTOMER_UUID_HERE",
+  "quantity": 1,
+  "unit_price": 799.99
+}
+
+### 10. Obtener Ventas
+GET {{baseURL}}/api/sales
+Authorization: Bearer {{token}}
+
+### 11. Dashboard Stats
+GET {{baseURL}}/api/stats/dashboard
+Authorization: Bearer {{token}}
+
+### 12. Reporte de Ventas
+GET {{baseURL}}/api/stats/sales-report?period=week
+Authorization: Bearer {{token}}
+
+### 13. Logout
+POST {{baseURL}}/api/auth/logout
+Authorization: Bearer {{token}}
